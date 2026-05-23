@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>KRYONES — Herencia Sin Herederos</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --orange: #e8650a;
+                --orange-light: #f5892e;
+                --dark: #1a1208;
+                --dark-mid: #2c1f0e;
+                --gold: #c8922a;
+                --cream: #f7f2ea;
+                --white: #ffffff;
+                --text-body: #3d2e18;
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: "DM Sans", sans-serif;
+                background: var(--cream);
+                color: var(--text-body);
+                overflow-x: hidden;
+            }
+
+            /* ── HERO ── */
+            .hero {
+                position: relative;
+                min-height: 100vh;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                overflow: hidden;
+                background: var(--dark);
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background:
+                    radial-gradient(
+                        ellipse 80% 60% at 70% 50%,
+                        rgba(232, 101, 10, 0.18) 0%,
+                        transparent 70%
+                    ),
+                    radial-gradient(
+                        ellipse 50% 80% at 10% 80%,
+                        rgba(200, 146, 42, 0.12) 0%,
+                        transparent 60%
+                    );
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            /* diagonal divider */
+            .hero::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(
+                    180deg,
+                    transparent,
+                    var(--orange) 30%,
+                    var(--orange-light) 70%,
+                    transparent
+                );
+                transform: skewX(-3deg);
+                z-index: 2;
+                opacity: 0.6;
+            }
+
+            .hero-left {
+                position: relative;
+                z-index: 3;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: clamp(2rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+                animation: fadeUp 0.9s ease both;
+            }
+
+            .hero-eyebrow {
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.25em;
+                text-transform: uppercase;
+                color: var(--orange-light);
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-title {
+                font-family: "Bebas Neue", sans-serif;
+                font-size: clamp(4rem, 9vw, 8rem);
+                line-height: 0.92;
+                color: var(--white);
+                letter-spacing: 0.02em;
+            }
+
+            .hero-title span {
+                display: block;
+                color: var(--orange);
+                -webkit-text-stroke: 1px var(--orange-light);
+            }
+
+            .hero-subtitle {
+                font-family: "Cormorant Garamond", serif;
+                font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+                font-style: italic;
+                color: rgba(247, 242, 234, 0.7);
+                margin: 1.8rem 0 2.4rem;
+                line-height: 1.5;
+                max-width: 420px;
+            }
+
+            .hero-cta {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.75rem;
+                background: var(--orange);
+                color: var(--white);
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.95rem;
+                font-weight: 500;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                padding: 1.1rem 2.2rem;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                transition:
+                    background 0.25s,
+                    transform 0.2s;
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 14px) 0,
+                    100% 14px,
+                    100% 100%,
+                    14px 100%,
+                    0 calc(100% - 14px)
+                );
+            }
+
+            .hero-cta:hover {
+                background: var(--orange-light);
+                transform: translateY(-2px);
+            }
+
+            .hero-cta svg {
+                flex-shrink: 0;
+            }
+
+            .hero-right {
+                position: relative;
+                z-index: 3;
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .hero-img-wrap {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                min-height: 520px;
+            }
+
+            .hero-img-wrap img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top center;
+                display: block;
+                opacity: 0.92;
+                animation: scaleIn 1.2s ease both;
+            }
+
+            .hero-img-wrap::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background:
+                    linear-gradient(
+                        90deg,
+                        var(--dark) 0%,
+                        transparent 30%,
+                        transparent 80%,
+                        var(--dark) 100%
+                    ),
+                    linear-gradient(0deg, var(--dark) 0%, transparent 20%);
+                pointer-events: none;
+            }
+
+            /* ── STRIP ── */
+            .strip {
+                background: var(--orange);
+                padding: 1rem 2rem;
+                text-align: center;
+                font-family: "Bebas Neue", sans-serif;
+                font-size: clamp(1rem, 2.5vw, 1.4rem);
+                letter-spacing: 0.15em;
+                color: var(--white);
+            }
+
+            /* ── SECTION BASE ── */
+            section {
+                padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+            }
+
+            .section-label {
+                font-size: 0.7rem;
+                letter-spacing: 0.3em;
+                text-transform: uppercase;
+                color: var(--orange);
+                font-weight: 500;
+                margin-bottom: 0.8rem;
+            }
+
+            .section-title {
+                font-family: "Bebas Neue", sans-serif;
+                font-size: clamp(2.2rem, 5vw, 4rem);
+                color: var(--dark);
+                line-height: 1;
+                letter-spacing: 0.02em;
+                margin-bottom: 1.5rem;
+            }
+
+            .section-title em {
+                font-style: normal;
+                color: var(--orange);
+            }
+
+            .section-body {
+                font-family: "Cormorant Garamond", serif;
+                font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+                line-height: 1.65;
+                max-width: 680px;
+                color: var(--text-body);
+            }
+
+            /* ── PROBLEM SECTION ── */
+            .problem {
+                background: var(--white);
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                align-items: center;
+            }
+
+            .problem-visual {
+                position: relative;
+            }
+
+            .big-number {
+                font-family: "Bebas Neue", sans-serif;
+                font-size: clamp(8rem, 18vw, 16rem);
+                line-height: 1;
+                color: transparent;
+                -webkit-text-stroke: 2px var(--orange);
+                opacity: 0.13;
+                user-select: none;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+
+            .icon-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.2rem;
+                position: relative;
+                z-index: 1;
+            }
+
+            .icon-card {
+                background: var(--cream);
+                border-left: 3px solid var(--orange);
+                padding: 1.4rem;
+                transition:
+                    transform 0.25s,
+                    box-shadow 0.25s;
+            }
+
+            .icon-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 32px rgba(232, 101, 10, 0.12);
+            }
+
+            .icon-card .icon {
+                font-size: 2rem;
+                margin-bottom: 0.7rem;
+            }
+
+            .icon-card h3 {
+                font-family: "Bebas Neue", sans-serif;
+                font-size: 1.05rem;
+                letter-spacing: 0.05em;
+                color: var(--dark);
+                margin-bottom: 0.4rem;
+            }
+
+            .icon-card p {
+                font-size: 0.82rem;
+                line-height: 1.5;
+                color: #6b5c45;
+            }
+
+            /* ── SERVICES ── */
+            .services {
+                background: var(--dark);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .services::before {
+                content: "";
+                position: absolute;
+                top: -100px;
+                right: -100px;
+                width: 500px;
+                height: 500px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(232, 101, 10, 0.15),
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+
+            .services .section-title {
+                color: var(--white);
+            }
+
+            .services .section-body {
+                color: rgba(247, 242, 234, 0.65);
+            }
+
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 1.5rem;
+                margin-top: 3rem;
+            }
+
+            .service-card {
+                border: 1px solid rgba(232, 101, 10, 0.25);
+                padding: 2rem;
+                position: relative;
+                overflow: hidden;
+                transition:
+                    border-color 0.3s,
+                    background 0.3s;
+                background: rgba(255, 255, 255, 0.03);
+            }
+
+            .service-card:hover {
+                border-color: var(--orange);
+                background: rgba(232, 101, 10, 0.07);
+            }
+
+            .service-card::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 3px;
+                height: 0;
+                background: var(--orange);
+                transition: height 0.4s ease;
+            }
+
+            .service-card:hover::before {
+                height: 100%;
+            }
+
+            .service-number {
+                font-family: "Bebas Neue", sans-serif;
+                font-size: 3rem;
+                color: rgba(232, 101, 10, 0.2);
+                line-height: 1;
+                margin-bottom: 0.5rem;
+                letter-spacing: 0.05em;
+            }
+
+            .service-card h3 {
+                font-family: "Bebas Neue", sans-serif;
+                font-size: 1.3rem;
+                color: var(--white);
+                letter-spacing: 0.05em;
+                margin-bottom: 0.8rem;
+            }
+
+            .service-card p {
+                font-size: 0.88rem;
+                line-height: 1.6;
+                color: rgba(247, 242, 234, 0.55);
+            }
+
+            /* ── FLYER SECTION ── */
+            .flyer-section {
+                background: var(--cream);
+                display: grid;
+                grid-template-columns: 1.1fr 0.9fr;
+                gap: 3rem;
+                align-items: center;
+            }
+
+            .flyer-frame {
+                position: relative;
+            }
+
+            .flyer-frame::before {
+                content: "";
+                position: absolute;
+                inset: -12px;
+                border: 2px solid var(--orange);
+                opacity: 0.35;
+                pointer-events: none;
+            }
+
+            .flyer-frame::after {
+                content: "";
+                position: absolute;
+                inset: -24px;
+                border: 1px solid var(--gold);
+                opacity: 0.15;
+                pointer-events: none;
+            }
+
+            .flyer-frame img {
+                width: 100%;
+                display: block;
+                position: relative;
+                z-index: 1;
+            }
+
+            /* ── CTA SECTION ── */
+            .cta-section {
+                background: var(--dark-mid);
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .cta-section::before {
+                content: "KRYONES";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-family: "Bebas Neue", sans-serif;
+                font-size: clamp(6rem, 18vw, 18rem);
+                color: transparent;
+                -webkit-text-stroke: 1px rgba(232, 101, 10, 0.08);
+                white-space: nowrap;
+                pointer-events: none;
+                user-select: none;
+                letter-spacing: 0.1em;
+            }
+
+            .cta-inner {
+                position: relative;
+                z-index: 1;
+            }
+
+            .cta-section .section-title {
+                color: var(--white);
+            }
+
+            .cta-section .section-body {
+                color: rgba(247, 242, 234, 0.65);
+                margin: 0 auto 2.5rem;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                background: var(--orange);
+                color: var(--white);
+                padding: 1.1rem 2.4rem;
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.9rem;
+                font-weight: 500;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                text-decoration: none;
+                border: 2px solid var(--orange);
+                transition: all 0.25s;
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 12px) 0,
+                    100% 12px,
+                    100% 100%,
+                    12px 100%,
+                    0 calc(100% - 12px)
+                );
+            }
+
+            .btn-primary:hover {
+                background: transparent;
+                color: var(--orange-light);
+            }
+
+            .btn-secondary {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                background: transparent;
+                color: var(--cream);
+                padding: 1.1rem 2.4rem;
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.9rem;
+                font-weight: 500;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                text-decoration: none;
+                border: 2px solid rgba(247, 242, 234, 0.25);
+                transition: all 0.25s;
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 12px) 0,
+                    100% 12px,
+                    100% 100%,
+                    12px 100%,
+                    0 calc(100% - 12px)
+                );
+            }
+
+            .btn-secondary:hover {
+                border-color: var(--orange);
+                color: var(--orange-light);
+            }
+
+            /* ── CONTACT ── */
+            .contact {
+                background: var(--white);
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+                align-items: center;
+            }
+
+            .contact-details {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: center;
+                gap: 1.2rem;
+                padding: 1.2rem 1.5rem;
+                background: var(--cream);
+                border-left: 3px solid var(--orange);
+                transition: transform 0.2s;
+            }
+
+            .contact-item:hover {
+                transform: translateX(5px);
+            }
+
+            .contact-item .ci-icon {
+                font-size: 1.5rem;
+                flex-shrink: 0;
+            }
+
+            .contact-item .ci-label {
+                font-size: 0.7rem;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: var(--orange);
+                font-weight: 500;
+                margin-bottom: 0.2rem;
+            }
+
+            .contact-item .ci-value {
+                font-family: "Cormorant Garamond", serif;
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: var(--dark);
+            }
+
+            .contact-item a {
+                color: inherit;
+                text-decoration: none;
+            }
+            .contact-item a:hover {
+                color: var(--orange);
+            }
+
+            .whatsapp-big {
+                background: var(--dark);
+                padding: 2.5rem;
+                text-align: center;
+            }
+
+            .whatsapp-big p {
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.8rem;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: rgba(247, 242, 234, 0.5);
+                margin-bottom: 0.5rem;
+            }
+
+            .whatsapp-big a {
+                font-family: "Bebas Neue", sans-serif;
+                font-size: clamp(2rem, 4vw, 3.2rem);
+                color: var(--white);
+                text-decoration: none;
+                letter-spacing: 0.06em;
+                display: block;
+                transition: color 0.2s;
+            }
+
+            .whatsapp-big a:hover {
+                color: var(--orange-light);
+            }
+
+            .wa-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: #25d366;
+                color: var(--white);
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                padding: 0.4rem 1rem;
+                margin-top: 0.8rem;
+                border-radius: 2px;
+            }
+
+            /* ── FOOTER ── */
+            footer {
+                background: var(--dark);
+                padding: 2rem clamp(1.5rem, 6vw, 5rem);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+                justify-content: space-between;
+                border-top: 1px solid rgba(232, 101, 10, 0.2);
+            }
+
+            footer .logo-text {
+                font-family: "Bebas Neue", sans-serif;
+                font-size: 1.4rem;
+                color: var(--white);
+                letter-spacing: 0.1em;
+            }
+
+            footer .logo-text span {
+                color: var(--orange);
+            }
+
+            footer p {
+                font-size: 0.75rem;
+                color: rgba(247, 242, 234, 0.35);
+                letter-spacing: 0.05em;
+            }
+
+            /* ── ANIMATIONS ── */
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes scaleIn {
+                from {
+                    opacity: 0;
+                    transform: scale(1.06);
+                }
+                to {
+                    opacity: 0.92;
+                    transform: scale(1);
+                }
+            }
+
+            .reveal {
+                opacity: 0;
+                transform: translateY(24px);
+                transition:
+                    opacity 0.7s ease,
+                    transform 0.7s ease;
+            }
+
+            .reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* ── RESPONSIVE ── */
+            @media (max-width: 768px) {
+                .hero {
+                    grid-template-columns: 1fr;
+                }
+                .hero::after {
+                    display: none;
+                }
+                .hero-right {
+                    display: none;
+                }
+                .hero-left {
+                    padding: 4rem 1.5rem 5rem;
+                }
+                .problem {
+                    grid-template-columns: 1fr;
+                }
+                .problem-visual {
+                    display: none;
+                }
+                .flyer-section {
+                    grid-template-columns: 1fr;
+                }
+                .contact {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+                .icon-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ══ HERO ══ -->
+        <header class="hero">
+            <div class="hero-left">
+                <p class="hero-eyebrow">Asociación Kryones · Madrid</p>
+                <h1 class="hero-title">
+                    KRYONES
+                    <span>LEGAL</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Especialistas en herencias sin herederos y propiedades sin
+                    propietario legal. Le damos una solución donde otros no ven
+                    salida.
+                </p>
+                <a href="#contacto" class="hero-cta">
+                    <svg
+                        width="16"
+                        height="16"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                    Consulta gratuita
+                </a>
+            </div>
+            <div class="hero-right">
+                <div class="hero-img-wrap">
+                    <img
+                        src="kryones_flyer.jpg"
+                        alt="Asociación Kryones Madrid — Asesoría jurídica inmobiliaria"
+                    />
+                </div>
+            </div>
+        </header>
+
+        <!-- strip -->
+        <div class="strip">
+            ¡PON TUS ASUNTOS EN MANOS DE EXPERTOS! &nbsp;·&nbsp; ASESORAMIENTO
+            EN EXTRANJERÍA, FISCAL, LABORAL Y CONTABLE
+        </div>
+
+        <!-- ══ PROBLEMA ══ -->
+        <section class="problem reveal">
+            <div class="problem-content">
+                <p class="section-label">El problema</p>
+                <h2 class="section-title">
+                    HERENCIA<br /><em>SIN HEREDEROS</em>
+                </h2>
+                <p class="section-body">
+                    Gestionamos herencias complicadas con o sin testamento. Si
+                    usted vive en un piso cuyo propietario ha fallecido sin
+                    herederos conocidos, o conoce viviendas en esa situación,
+                    podemos ofrecerle una solución completamente legal — y usted
+                    puede beneficiarse del proceso.
+                </p>
+            </div>
+            <div class="problem-visual">
+                <div class="big-number">H</div>
+                <div class="icon-grid">
+                    <div class="icon-card">
+                        <div class="icon">📋</div>
+                        <h3>Sin testamento</h3>
+                        <p>
+                            Despejamos dudas y solucionamos disputas entre
+                            partes.
+                        </p>
+                    </div>
+                    <div class="icon-card">
+                        <div class="icon">🏠</div>
+                        <h3>Sin herederos</h3>
+                        <p>
+                            Recuperamos y regularizamos propiedades sin titular
+                            legal.
+                        </p>
+                    </div>
+                    <div class="icon-card">
+                        <div class="icon">⚖️</div>
+                        <h3>Conflictos legales</h3>
+                        <p>Resolución de litigios y situaciones complejas.</p>
+                    </div>
+                    <div class="icon-card">
+                        <div class="icon">💰</div>
+                        <h3>Usufructos</h3>
+                        <p>
+                            Optimización y gestión de bienes inmobiliarios en
+                            situaciones especiales.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SERVICIOS ══ -->
+        <section class="services reveal">
+            <p class="section-label" style="color: var(--orange-light)">
+                Nuestros servicios
+            </p>
+            <h2 class="section-title">
+                LO QUE<br /><em>HACEMOS</em><br />POR USTED
+            </h2>
+            <p class="section-body">
+                Abordamos herencias con y sin testamentos, usufructos y
+                propiedades en situaciones complejas. Cada caso merece una
+                solución a medida.
+            </p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-number">01</div>
+                    <h3>Herencias sin testamento</h3>
+                    <p>
+                        Localizamos herederos, tramitamos declaraciones de
+                        herederos ab intestato y resolvemos disputas familiares
+                        de forma ágil y eficaz.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">02</div>
+                    <h3>Propiedades sin propietario legal</h3>
+                    <p>
+                        Si el titular ha fallecido sin herederos, existe un
+                        camino legal para regularizar la situación. Le guiamos
+                        y, en muchos casos, usted puede beneficiarse
+                        económicamente.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">03</div>
+                    <h3>Usufructos y liquidez</h3>
+                    <p>
+                        Optimizamos y gestionamos bienes inmobiliarios cuando
+                        existen cargas de usufructo o problemas de liquidez que
+                        bloquean la herencia.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">04</div>
+                    <h3>Asesoría fiscal y extranjería</h3>
+                    <p>
+                        Servicio integral: fiscal, laboral, contable y
+                        extranjería para residentes y no residentes que
+                        necesiten gestionar bienes en España.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ FLYER ══ -->
+        <section class="flyer-section reveal">
+            <div class="flyer-frame">
+                <img src="kryones_flyer.jpg" alt="Folleto Asociación Kryones" />
+            </div>
+            <div>
+                <p class="section-label">¿Por qué Kryones?</p>
+                <h2 class="section-title">
+                    EXPERTOS<br />EN <em>CASOS<br />DIFÍCILES</em>
+                </h2>
+                <p class="section-body" style="margin-bottom: 1.8rem">
+                    Somos la Asociación Kryones de Madrid. Nuestro equipo
+                    combina experiencia jurídica, fiscal e inmobiliaria para
+                    abordar los casos que otros despachos rechazan. Si la
+                    situación es compleja, es exactamente donde mejor
+                    trabajamos.
+                </p>
+                <p class="section-body" style="font-size: 1rem; color: #6b5c45">
+                    Con nosotros tiene un interlocutor único que coordina todos
+                    los frentes legales — porque las herencias complicadas
+                    raramente son solo un problema jurídico.
+                </p>
+            </div>
+        </section>
+
+        <!-- ══ CTA ══ -->
+        <section class="cta-section reveal">
+            <div class="cta-inner">
+                <p
+                    class="section-label"
+                    style="color: var(--orange-light); text-align: center"
+                >
+                    Actúe ahora
+                </p>
+                <h2 class="section-title" style="text-align: center">
+                    CONSULTA SU<br /><em>SITUACIÓN HOY</em>
+                </h2>
+                <p class="section-body">
+                    Cada día sin regularizar una herencia o una propiedad puede
+                    suponer costes adicionales, conflictos o perder una
+                    oportunidad. La primera consulta es sin compromiso.
+                </p>
+                <div class="cta-buttons">
+                    <a
+                        href="https://wa.me/34611236055"
+                        target="_blank"
+                        class="btn-primary"
+                    >
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                            />
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.858L.057 23.057a.75.75 0 00.914.915l5.233-1.472A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.722 9.722 0 01-4.978-1.368l-.356-.212-3.691 1.037 1.044-3.627-.232-.373A9.723 9.723 0 012.25 12c0-5.376 4.374-9.75 9.75-9.75s9.75 4.374 9.75 9.75-4.374 9.75-9.75 9.75z"
+                            />
+                        </svg>
+                        WhatsApp ahora
+                    </a>
+                    <a
+                        href="mailto:asesoriajuridicainmobiliaria.00@gmail.com"
+                        class="btn-secondary"
+                    >
+                        <svg
+                            width="16"
+                            height="16"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <path d="m2 7 10 7 10-7" />
+                        </svg>
+                        Enviar email
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ CONTACTO ══ -->
+        <section class="contact reveal" id="contacto">
+            <div>
+                <p class="section-label">Contacto</p>
+                <h2 class="section-title">HABLE CON<br /><em>NOSOTROS</em></h2>
+                <p class="section-body" style="margin-bottom: 2rem">
+                    Estamos disponibles por teléfono, WhatsApp y email.
+                    Cuéntenos su situación sin compromiso.
+                </p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="ci-icon">📞</span>
+                        <div>
+                            <div class="ci-label">Teléfono / WhatsApp</div>
+                            <div class="ci-value">
+                                <a href="tel:+34611236055">+34 611 236 055</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="ci-icon">✉️</span>
+                        <div>
+                            <div class="ci-label">Correo electrónico</div>
+                            <div class="ci-value">
+                                <a
+                                    href="mailto:asesoriajuridicainmobiliaria.00@gmail.com"
+                                    >asesoriajuridicainmobiliaria.00@gmail.com</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="ci-icon">🌐</span>
+                        <div>
+                            <div class="ci-label">Web</div>
+                            <div class="ci-value">
+                                <a
+                                    href="https://www.asociacionkryones.org"
+                                    target="_blank"
+                                    >www.asociacionkryones.org</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="whatsapp-big">
+                <p>¡Atendemos también por WhatsApp!</p>
+                <a href="https://wa.me/34611236055" target="_blank"
+                    >+34 611 236 055</a
+                >
+                <div>
+                    <span class="wa-badge">
+                        <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                            />
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.858L.057 23.057a.75.75 0 00.914.915l5.233-1.472A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.722 9.722 0 01-4.978-1.368l-.356-.212-3.691 1.037 1.044-3.627-.232-.373A9.723 9.723 0 012.25 12c0-5.376 4.374-9.75 9.75-9.75s9.75 4.374 9.75 9.75-4.374 9.75-9.75 9.75z"
+                            />
+                        </svg>
+                        Disponible ahora
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ FOOTER ══ -->
+        <footer>
+            <div class="logo-text">KRYONES <span>LEGAL</span></div>
+            <p>Asociación Kryones de Madrid · Asesoría Jurídica Inmobiliaria</p>
+            <p>© 2025 Todos los derechos reservados</p>
+        </footer>
+
+        <script>
+            // Scroll reveal
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add("visible");
+                            observer.unobserve(e.target);
+                        }
+                    });
+                },
+                { threshold: 0.12 },
+            );
+
+            document
+                .querySelectorAll(".reveal")
+                .forEach((el) => observer.observe(el));
+        </script>
+    </body>
+</html>
